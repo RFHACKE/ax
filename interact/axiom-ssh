@@ -181,7 +181,7 @@ fi
 #
 if [ $use_tmux == true ]
 then
-args="$args -t 'tmux new-session -t $tmux_session'"
+args="$args -t 'systemd-run --scope --user tmux new-session -s $tmux_session'"
 fi
 
 ###########################################################################################################
