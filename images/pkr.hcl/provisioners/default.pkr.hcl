@@ -69,6 +69,10 @@
         "/bin/su -l root -c 'echo \"net.core.somaxconn = 1048576\" | sudo tee -a /etc/sysctl.conf'",
         "/bin/su -l root -c 'echo \"net.ipv4.ip_local_port_range = 1024 65535\" | sudo tee -a /etc/sysctl.conf'",
         "/bin/su -l root -c 'echo \"1024 65535\" | sudo tee -a /proc/sys/net/ipv4/ip_local_port_range'",
+        "loginctl enable-linger op",
+        "sudo mkdir -p /etc/systemd/logind.conf.d/",
+        "echo -e "[Login]\nKillUserProcesses=no" | sudo tee /etc/systemd/logind.conf.d/90-tmux-fix.conf > /dev/null",
+        "sudo systemctl restart systemd-logind.service",
 
         "echo 'Downloading Files and Lists'",
 
