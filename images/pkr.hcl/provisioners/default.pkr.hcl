@@ -89,6 +89,15 @@
 
         "echo 'Installing Tools'",
 
+        "echo 'Installing File_sender.sh'",
+	"git clone https://github.com/RFHACKE/Discord-File-Sender.git /home/op/sender",
+	"chmod +x /home/op/sender/file_sender.sh",
+	"/bin/su cp /home/op/sender/file_sender.sh /usr/local/bin/",
+	"rm -r /home/op/sender",
+
+	"echo 'Installing dos2unix'",
+	"/bin/su apt-get install dos2unix",
+
         "echo 'Installing anew'",
         "/bin/su -l op -c '/usr/local/go/bin/go install -v github.com/tomnomnom/anew@latest'",
 
