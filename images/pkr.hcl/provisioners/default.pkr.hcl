@@ -99,7 +99,7 @@
 	"rm -r /home/op/sender",
 
 	"echo 'Installing dos2unix'",
-	"sudo apt-get install dos2unix",
+	"sudo apt-get install dos2unix -y -qq",
 
         "echo 'Installing anew'",
         "/bin/su -l op -c '/usr/local/go/bin/go install -v github.com/tomnomnom/anew@latest'",
