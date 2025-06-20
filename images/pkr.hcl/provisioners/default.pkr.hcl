@@ -87,6 +87,9 @@
         "echo 'Downloading SecLists'",
         "git clone https://github.com/danielmiessler/SecLists.git /home/op/lists/seclists",
 
+        "echo 'Downloading Onelistforall'",
+        "git clone https://github.com/six2dez/OneListForAll.git /home/op/lists/onelistforall",
+
         "echo 'Installing Tools'",
 
         "echo 'Installing File_sender.sh'",
