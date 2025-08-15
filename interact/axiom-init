@@ -252,15 +252,24 @@ users:
     sudo: ['ALL=(ALL) NOPASSWD:ALL']
     shell: /bin/bash
 runcmd:
-  - echo 'Configuring SSH port 2266'
   - sed -i 's/#Port 22/Port 2266/' /etc/ssh/sshd_config
+  - systemctl disable ssh.socket
+  - sudo systemctl stop ssh.socket
   - echo 'Port 22' >> /etc/ssh/sshd_config
   - echo 'Port 2266' >> /etc/ssh/sshd_config
-  - systemctl restart sshd
+  - mkdir -p /run/sshd
+  - chown root:root /run/sshd
+  - chmod 755 /run/sshd
+  - sudo systemctl enable ssh
+  - sudo systemctl restart ssh
   - echo 'Configuring firewall'
   - ufw allow 22
   - ufw allow 2266
   - ufw --force enable
+  - loginctl enable-linger op
+  - sudo mkdir -p /etc/systemd/logind.conf.d/
+  - echo -e '[Login]\nKillUserProcesses=no' | sudo tee /etc/systemd/logind.conf.d/90-tmux-fix.conf > /dev/null
+  - sudo systemctl restart systemd-logind.service
 EOF
 )
 fi
