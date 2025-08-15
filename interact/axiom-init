@@ -104,6 +104,7 @@ function usage() {
     echo -e "  ${BGreen}axiom-init testy01${Color_Off}                             # Create instance named testy01"
     echo -e "  ${BGreen}axiom-init stok01 --region nyc3 --image axiom-default-123 \\ ${Color_Off}"
     echo -e "    ${BGreen}--size s-1vcpu-2gb --deploy desktop --shell${Color_Off}  # Full init with custom settings"
+    echo -e "  ${BGreen}axiom-init box --image-id linode/ubuntu24.04${Color_Off}  # Create instance with a specific default linode provided image"
     echo
 }
 
@@ -250,6 +251,16 @@ users:
       - $public_key_content
     sudo: ['ALL=(ALL) NOPASSWD:ALL']
     shell: /bin/bash
+runcmd:
+  - echo 'Configuring SSH port 2266'
+  - sed -i 's/#Port 22/Port 2266/' /etc/ssh/sshd_config
+  - echo 'Port 22' >> /etc/ssh/sshd_config
+  - echo 'Port 2266' >> /etc/ssh/sshd_config
+  - systemctl restart sshd
+  - echo 'Configuring firewall'
+  - ufw allow 22
+  - ufw allow 2266
+  - ufw --force enable
 EOF
 )
 fi
